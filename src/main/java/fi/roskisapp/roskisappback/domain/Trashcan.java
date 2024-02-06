@@ -8,10 +8,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Thrashcan {
+public class Trashcan {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private double lon;
@@ -22,7 +22,7 @@ public class Thrashcan {
     
     // Constructors
     
-    public Thrashcan(double lon, double lat) {
+    public Trashcan(double lon, double lat) {
         this.lon = lon;
         this.lat = lat;
         this.images = null;
