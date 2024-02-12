@@ -21,6 +21,12 @@ public class Trashcan {
     private List<String> images;
     
     // Constructors
+
+    public Trashcan() {
+        this.lon = 0;
+        this.lat = 0;
+        this.images = null;
+    }
     
     public Trashcan(double lon, double lat) {
         this.lon = lon;
@@ -29,6 +35,7 @@ public class Trashcan {
     }
     
     // Getters and Setters
+
 
     public double getLon() {
         return lon;
