@@ -6,9 +6,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fi.roskisapp.roskisappback.domain.Trashcan;
 import fi.roskisapp.roskisappback.domain.TrashcanRepository;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+@CrossOrigin
 @RestController
 public class TrashcanRestController {
     @Autowired
