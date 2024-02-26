@@ -14,23 +14,22 @@ public class Trashcan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private double lon;
-
     private double lat;
+    private double lon;
 
     private List<String> images;
     
     // Constructors
 
     public Trashcan() {
-        this.lon = 0;
         this.lat = 0;
+        this.lon = 0;
         this.images = null;
     }
     
-    public Trashcan(double lon, double lat) {
-        this.lon = lon;
+    public Trashcan(double lat, double lon) {
         this.lat = lat;
+        this.lon = lon;
         this.images = null;
     }
     
@@ -44,20 +43,20 @@ public class Trashcan {
         this.id = id;
     }
 
-    public double getLon() {
-        return lon;
-    }
-
-    public void setLon(double lon) {
-        this.lon = lon;
-    }
-
     public double getLat() {
         return lat;
     }
 
     public void setLat(double lat) {
         this.lat = lat;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
     }
 
     public List<String> getImages() {
