@@ -19,6 +19,7 @@ public class Trashcan {
     private double lat;
     private double lon;
 
+    // The first string is a status code where 0=available (default), 1=full, 2=out of order
     private String[] status = { "", "" };
 
     private List<String> images;
