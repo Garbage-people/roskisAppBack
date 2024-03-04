@@ -4,6 +4,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -16,6 +17,7 @@ import fi.roskisapp.roskisappback.domain.Trashcan;
 import fi.roskisapp.roskisappback.domain.TrashcanRepository;
 
 @SpringBootApplication
+@EnableMongoRepositories
 public class RoskisappbackApplication {
 
 	// private static final Logger log =
@@ -29,14 +31,14 @@ public class RoskisappbackApplication {
 	public CommandLineRunner demo(TrashcanRepository trashcanRepository) {
 		return (args) -> {
 
-			String coordsString = new String(
-					Files.readAllBytes(Paths.get("src\\main\\resources\\scripts\\coordinates.json")));
-			JSONArray jsonArray = new JSONArray(coordsString);
-			for (int i = 0; i < jsonArray.length(); i++) {
-				Double lat = jsonArray.getJSONObject(i).getDouble("lat");
-				Double lon = jsonArray.getJSONObject(i).getDouble("lon");
-				trashcanRepository.save(new Trashcan(lat, lon));
-			}
+			// String coordsString = new String(
+			// 		Files.readAllBytes(Paths.get("src\\main\\resources\\scripts\\coordinates.json")));
+			// JSONArray jsonArray = new JSONArray(coordsString);
+			// for (int i = 0; i < jsonArray.length(); i++) {
+			// 	Double lat = jsonArray.getJSONObject(i).getDouble("lat");
+			// 	Double lon = jsonArray.getJSONObject(i).getDouble("lon");
+			// 	trashcanRepository.save(new Trashcan(lat, lon));
+			// }
 		};
 
 	}

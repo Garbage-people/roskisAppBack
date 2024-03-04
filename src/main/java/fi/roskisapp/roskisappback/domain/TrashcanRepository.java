@@ -1,7 +1,7 @@
 package fi.roskisapp.roskisappback.domain;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface TrashcanRepository extends CrudRepository<Trashcan, Long> {
-    
+public interface TrashcanRepository extends MongoRepository<Trashcan, String> {
+
 }
