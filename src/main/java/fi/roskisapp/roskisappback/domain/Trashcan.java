@@ -1,5 +1,7 @@
 package fi.roskisapp.roskisappback.domain;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -17,8 +19,10 @@ public class Trashcan {
     private double lat;
     private double lon;
 
+    private String[] status = { "", "" };
+
     private List<String> images;
-    
+
     // Constructors
 
     public Trashcan() {
@@ -26,15 +30,15 @@ public class Trashcan {
         this.lon = 0;
         this.images = null;
     }
-    
+
     public Trashcan(double lat, double lon) {
         this.lat = lat;
         this.lon = lon;
         this.images = null;
     }
-    
+
     // Getters and Setters
-    
+
     public long getId() {
         return id;
     }
@@ -69,12 +73,21 @@ public class Trashcan {
         this.images = images;
     }
 
-    
+    public String[] getStatus() {
+        return Arrays.copyOf(status, status.length);
+    }
+
+    public void setStatus(String statusCode, String statusDate) {
+        this.status[0] = statusCode;
+        this.status[1] = statusDate;
+    }
+
     // ToString, no list of the images
-    
+
     @Override
     public String toString() {
-        return "Thrashcan [id=" + id + ", lon=" + lon + ", lat=" + lat + "]";
+        return "Thrashcan [id=" + id + ", lon=" + lon + ", lat=" + lat + ", statusCode=" + status[0] + ", statusDate="
+                + status[1] + "]";
     }
 
     // Methods
@@ -82,5 +95,5 @@ public class Trashcan {
     public void addImage(String imageURL) {
         this.images.add(imageURL);
     }
-    
+
 }
