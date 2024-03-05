@@ -30,7 +30,7 @@ public class RoskisappbackApplication {
 		return (args) -> {
 
 			String coordsString = new String(
-					Files.readAllBytes(Paths.get("src\\main\\resources\\scripts\\coordinates.json")));
+					Files.readAllBytes(Paths.get("src/main/resources/scripts/coordinates.json")));
 			JSONArray jsonArray = new JSONArray(coordsString);
 			for (int i = 0; i < jsonArray.length(); i++) {
 				Double lat = jsonArray.getJSONObject(i).getDouble("lat");
