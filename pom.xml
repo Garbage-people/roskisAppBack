@@ -8,11 +8,11 @@
 		<version>3.2.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>fi.roskisapp</groupId>
-	<artifactId>roskisappback</artifactId>
+	<groupId>fi.lahiroskikset</groupId>
+	<artifactId>lahiroskikset</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>roskisappback</name>
-	<description>Demo project for Spring Boot</description>
+	<name>lahiroskikset</name>
+	<description>Spring Boot API for Lahiroskikset</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -36,19 +36,19 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-rest</artifactId>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
-        </dependency>
+        </dependency> -->
         <!-- <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
@@ -66,6 +66,10 @@
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20240205</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
 	</dependencies>
 

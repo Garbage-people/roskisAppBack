@@ -1,19 +1,17 @@
-package fi.roskisapp.roskisappback.domain;
+package fi.lahiroskikset.lahiroskikset.domain;
 
 import java.util.Arrays;
 import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
+@Document("trashcans")
 public class Trashcan {
 
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private String id;
 
     private double lat;
     private double lon;
@@ -39,11 +37,11 @@ public class Trashcan {
 
     // Getters and Setters
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
