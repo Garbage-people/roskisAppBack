@@ -1,10 +1,13 @@
-package fi.roskisapp.roskisappback;
+package fi.lahiroskikset.lahiroskikset;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+
+import fi.lahiroskikset.lahiroskikset.domain.Trashcan;
+import fi.lahiroskikset.lahiroskikset.domain.TrashcanRepository;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -13,18 +16,17 @@ import org.json.*;
 // import org.slf4j.Logger;
 // import org.slf4j.LoggerFactory;
 
-import fi.roskisapp.roskisappback.domain.Trashcan;
-import fi.roskisapp.roskisappback.domain.TrashcanRepository;
+
 
 @SpringBootApplication
 @EnableMongoRepositories
-public class RoskisappbackApplication {
+public class LahiroskiksetApplication {
 
 	// private static final Logger log =
 	// LoggerFactory.getLogger(RoskisappbackApplication.class);
 
 	public static void main(String[] args) {
-		SpringApplication.run(RoskisappbackApplication.class, args);
+		SpringApplication.run(LahiroskiksetApplication.class, args);
 	}
 
 	@Bean

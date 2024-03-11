@@ -1,4 +1,4 @@
-package fi.roskisapp.roskisappback.domain;
+package fi.lahiroskikset.lahiroskikset.domain;
 
 import java.util.Arrays;
 import java.util.List;

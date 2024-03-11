@@ -1,11 +1,11 @@
-package fi.roskisapp.roskisappback.web;
+package fi.lahiroskikset.lahiroskikset.web;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
-import fi.roskisapp.roskisappback.domain.Trashcan;
-import fi.roskisapp.roskisappback.domain.TrashcanRepository;
+import fi.lahiroskikset.lahiroskikset.domain.Trashcan;
+import fi.lahiroskikset.lahiroskikset.domain.TrashcanRepository;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

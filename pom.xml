@@ -8,11 +8,11 @@
 		<version>3.2.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>fi.roskisapp</groupId>
-	<artifactId>roskisappback</artifactId>
+	<groupId>fi.lahiroskikset</groupId>
+	<artifactId>lahiroskikset</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>roskisappback</name>
-	<description>Demo project for Spring Boot</description>
+	<name>lahiroskikset</name>
+	<description>Spring Boot API for Lahiroskikset</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
