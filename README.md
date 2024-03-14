@@ -8,6 +8,12 @@ This application provides the user a map based on their location and shows the u
 To use and run this project you need to clone the project to your own computer. It can be done using this link:
 https://github.com/Garbage-people/roskisAppBack.git
 
+### Building and running Docker Image
+```
+docker build -t <name_of_image> .
+docker run -d  ---env-file .env -p 8080:8080 --name <name_of_container> <name_of_image>
+```
+
 ## Usage
 To use this project properly you need the front end of the project which you can find from here:
 https://github.com/Garbage-people/roskisAppFront
