@@ -11,7 +11,7 @@ https://github.com/Garbage-people/roskisAppBack.git
 ### Building and running Docker Image
 ```
 docker build -t <name_of_image> .
-docker run -d  ---env-file .env -p 8080:8080 --name <name_of_container> <name_of_image>
+docker run -d  --env-file .env -p 8080:8080 --name <name_of_container> <name_of_image>
 ```
 
 ## Usage
