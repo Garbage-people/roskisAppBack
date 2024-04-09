@@ -60,6 +60,7 @@ public class TrashcanRestController {
 
         for (Trashcan trashcan : trashcans) {
             if (DistanceCalculator.calculateDistance(newTrashcan, trashcan) < 0.0001) {
+                // 0.0001 is empirical distance we've deemed too close
                 return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
             }
         }
