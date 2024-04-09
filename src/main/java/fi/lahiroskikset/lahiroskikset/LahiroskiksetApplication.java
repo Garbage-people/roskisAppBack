@@ -8,15 +8,12 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 import fi.lahiroskikset.lahiroskikset.domain.Trashcan;
 import fi.lahiroskikset.lahiroskikset.domain.TrashcanRepository;
-
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import org.json.*;
 // import org.slf4j.Logger;
 // import org.slf4j.LoggerFactory;
-
-
 
 @SpringBootApplication
 @EnableMongoRepositories

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fi.lahiroskikset.lahiroskikset.domain.Trashcan;
 import fi.lahiroskikset.lahiroskikset.domain.TrashcanRepository;
+import fi.lahiroskikset.lahiroskikset.service.DistanceCalculator;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,8 +52,19 @@ public class TrashcanRestController {
     }
 
     @PostMapping
-    public Trashcan addTrashcan(@RequestBody Trashcan newTrashcan) {
-        return trashcanRepository.save(newTrashcan);
+    public ResponseEntity<Void> addTrashcan(@RequestBody Trashcan newTrashcan) {
+        // Fetch all trashcans from the database and calculate distance between existing trashcans and the new trashcan.
+        // Reject the new trashcan if it's too close to an existing one.
+
+        List<Trashcan> trashcans = trashcanRepository.findAll();
+
+        for (Trashcan trashcan : trashcans) {
+            if (DistanceCalculator.calculateDistance(newTrashcan, trashcan) < 0.0001) {
+                return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+            }
+        }
+        trashcanRepository.save(newTrashcan);
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
 }
