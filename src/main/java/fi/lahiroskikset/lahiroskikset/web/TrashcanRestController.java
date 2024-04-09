@@ -59,8 +59,8 @@ public class TrashcanRestController {
         List<Trashcan> trashcans = trashcanRepository.findAll();
 
         for (Trashcan trashcan : trashcans) {
-            if (DistanceCalculator.calculateDistance(newTrashcan, trashcan) < 0.0001) {
-                // 0.0001 is empirical distance we've deemed too close
+            if (DistanceCalculator.calculateDistance(newTrashcan, trashcan) < 0.00015) {
+                // 0.00015 is empirically found numerical distance we've deemed too close
                 return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
             }
         }
