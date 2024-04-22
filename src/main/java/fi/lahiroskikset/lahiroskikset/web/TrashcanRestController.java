@@ -1,5 +1,9 @@
 package fi.lahiroskikset.lahiroskikset.web;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,12 +27,49 @@ public class TrashcanRestController {
 
     @GetMapping
     public @ResponseBody List<Trashcan> listAllTrashcansREST() {
+        String apiKeyName = "API_KEY";
+
+        String apiValue = System.getenv(apiKeyName);
+
+        if (apiValue != null) {
+            System.out.println("Environment variable '" + apiKeyName + "' exists.");
+            System.out.println("Value: " + apiValue);
+        } else {
+            System.out.println("Environment variable '" + apiKeyName + "' does not exist.");
+        }
+
         return (List<Trashcan>) trashcanRepository.findAll();
-    }
+        
+    };
+
+    private boolean isValidStatus(String status) {
+        return Arrays.asList("0", "1", "2").contains(status);
+    };
+
+    private boolean isValidDate(String dateString) {
+        try {
+            LocalDate currentDate = LocalDate.now();
+            LocalDate parsedDate = LocalDate.parse(dateString);
+            return currentDate.isEqual(parsedDate);
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    };
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateTrashcan(@PathVariable("id") String id, @RequestBody Trashcan updatedTrashcan) {
         try {
+
+            if (!isValidStatus(updatedTrashcan.getStatus()[0])) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            ;
+
+            if (!isValidDate(updatedTrashcan.getStatus()[1])) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            ;
+
             Optional<Trashcan> trashcanToUpdate = trashcanRepository.findById(id);
             if (trashcanToUpdate.isPresent()) {
                 trashcanToUpdate.get().setStatus(updatedTrashcan.getStatus()[0], updatedTrashcan.getStatus()[1]);
@@ -40,8 +81,9 @@ public class TrashcanRestController {
         } catch (Error e) {
             System.err.println(e);
         }
+        ;
         return null;
-    }
+    };
 
     @PostMapping
     public ResponseEntity<Void> addTrashcan(@RequestBody Trashcan newTrashcan) {
@@ -56,13 +98,14 @@ public class TrashcanRestController {
                     // 0.00015 is empirically found numerical distance we've deemed too close
                     return new ResponseEntity<Void>(HttpStatus.I_AM_A_TEAPOT);
                 }
+                ;
             }
+            ;
 
             trashcanRepository.save(newTrashcan);
             return new ResponseEntity<Void>(HttpStatus.OK);
         } catch (Error e) {
             return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
         }
-    }
-
-}
+    };
+};
