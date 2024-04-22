@@ -45,19 +45,24 @@ public class TrashcanRestController {
 
     @PostMapping
     public ResponseEntity<Void> addTrashcan(@RequestBody Trashcan newTrashcan) {
-        // Fetch all trashcans from the database and calculate distance between existing trashcans and the new trashcan.
+        // Fetch all trashcans from the database and calculate distance between existing
+        // trashcans and the new trashcan.
         // Reject the new trashcan if it's too close to an existing one.
 
         List<Trashcan> trashcans = trashcanRepository.findAll();
-
-        for (Trashcan trashcan : trashcans) {
-            if (DistanceCalculator.calculateDistance(newTrashcan, trashcan) < 0.00015) {
-                // 0.00015 is empirically found numerical distance we've deemed too close
-                return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+        try {
+            for (Trashcan trashcan : trashcans) {
+                if (DistanceCalculator.calculateDistance(newTrashcan, trashcan) < 0.00015) {
+                    // 0.00015 is empirically found numerical distance we've deemed too close
+                    return new ResponseEntity<Void>(HttpStatus.I_AM_A_TEAPOT);
+                }
             }
+
+            trashcanRepository.save(newTrashcan);
+            return new ResponseEntity<Void>(HttpStatus.OK);
+        } catch (Error e) {
+            return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
         }
-        trashcanRepository.save(newTrashcan);
-        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
 }
