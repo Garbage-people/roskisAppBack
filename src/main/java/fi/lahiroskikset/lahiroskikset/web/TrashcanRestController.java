@@ -1,9 +1,11 @@
 package fi.lahiroskikset.lahiroskikset.web;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,18 +41,24 @@ public class TrashcanRestController {
         }
 
         return (List<Trashcan>) trashcanRepository.findAll();
-        
     };
 
     private boolean isValidStatus(String status) {
         return Arrays.asList("0", "1", "2").contains(status);
     };
 
-    private boolean isValidDate(String dateString) {
+    private boolean isValidDateTime(String dateTimeString) {
         try {
-            LocalDate currentDate = LocalDate.now();
-            LocalDate parsedDate = LocalDate.parse(dateString);
-            return currentDate.isEqual(parsedDate);
+            LocalDateTime currentDateTime = LocalDateTime.now(ZoneOffset.UTC);
+            LocalDateTime parsedDateTime = LocalDateTime.parse(dateTimeString, DateTimeFormatter.ISO_DATE_TIME);
+
+            long diff = ChronoUnit.HOURS.between(parsedDateTime, currentDateTime);
+
+            if (diff == 0) {
+                return true;
+            } else {
+                return false;
+            }
         } catch (DateTimeParseException e) {
             return false;
         }
@@ -62,13 +70,11 @@ public class TrashcanRestController {
 
             if (!isValidStatus(updatedTrashcan.getStatus()[0])) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
-            ;
+            };
 
-            if (!isValidDate(updatedTrashcan.getStatus()[1])) {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
-            ;
+            if (!isValidDateTime(updatedTrashcan.getStatus()[1])) {
+                return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+            };
 
             Optional<Trashcan> trashcanToUpdate = trashcanRepository.findById(id);
             if (trashcanToUpdate.isPresent()) {
@@ -80,8 +86,7 @@ public class TrashcanRestController {
             }
         } catch (Error e) {
             System.err.println(e);
-        }
-        ;
+        };
         return null;
     };
 
@@ -101,7 +106,6 @@ public class TrashcanRestController {
                 ;
             }
             ;
-
             trashcanRepository.save(newTrashcan);
             return new ResponseEntity<Void>(HttpStatus.OK);
         } catch (Error e) {
