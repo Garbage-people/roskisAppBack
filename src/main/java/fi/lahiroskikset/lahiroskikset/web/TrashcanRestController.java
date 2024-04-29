@@ -27,6 +27,9 @@ public class TrashcanRestController {
     @Autowired
     private TrashcanRepository trashcanRepository;
 
+    @Autowired
+    private RecaptchaService recaptchaService;
+
     @GetMapping
     public @ResponseBody List<Trashcan> listAllTrashcansREST() {
         String apiKeyName = "API_KEY";
@@ -94,7 +97,8 @@ public class TrashcanRestController {
     };
 
     @PostMapping
-    public ResponseEntity<Void> addTrashcan(@RequestBody Trashcan newTrashcan) {
+    public ResponseEntity<Void> addTrashcan(@RequestBody Trashcan newTrashcan,
+            @RequestHeader("recaptcha-token") String recaptchaToken) {
         // Fetch all trashcans from the database and calculate distance between existing
         // trashcans and the new trashcan.
         // Reject the new trashcan if it's too close to an existing one.
@@ -109,19 +113,16 @@ public class TrashcanRestController {
                 ;
             }
             ;
-            trashcanRepository.save(newTrashcan);
-            return new ResponseEntity<Void>(HttpStatus.OK);
+            // ReCaptcha toke comes in in the header of the request
+            if (recaptchaService.verifyRecaptcha(recaptchaToken)) {
+                trashcanRepository.save(newTrashcan);
+                return new ResponseEntity<Void>(HttpStatus.OK);
+            } else {
+                // ReCaptcha token was not verifiable
+                return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+            }
         } catch (Error e) {
             return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
         }
     };
-
-    // ReCaptcha token verification, NEEDS TO BE BAKED INTO THE ADD TRASHCAN PART !!!
-    @Autowired
-    private RecaptchaService recaptchaService;
-
-    @PostMapping("/verify-recaptcha")
-    public boolean verifyRecaptcha(@RequestBody String recaptchaToken) {
-        return recaptchaService.verifyRecaptcha(recaptchaToken);
-    }
 };
