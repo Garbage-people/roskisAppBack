@@ -12,11 +12,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
 
 import fi.lahiroskikset.lahiroskikset.domain.Trashcan;
 import fi.lahiroskikset.lahiroskikset.domain.TrashcanRepository;
 import fi.lahiroskikset.lahiroskikset.service.DistanceCalculator;
+import fi.lahiroskikset.lahiroskikset.service.RecaptchaService;
 
 import org.springframework.web.bind.annotation.*;
 
@@ -70,11 +70,13 @@ public class TrashcanRestController {
 
             if (!isValidStatus(updatedTrashcan.getStatus()[0])) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            };
+            }
+            ;
 
             if (!isValidDateTime(updatedTrashcan.getStatus()[1])) {
                 return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
-            };
+            }
+            ;
 
             Optional<Trashcan> trashcanToUpdate = trashcanRepository.findById(id);
             if (trashcanToUpdate.isPresent()) {
@@ -86,7 +88,8 @@ public class TrashcanRestController {
             }
         } catch (Error e) {
             System.err.println(e);
-        };
+        }
+        ;
         return null;
     };
 
@@ -112,4 +115,13 @@ public class TrashcanRestController {
             return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
         }
     };
+
+    // ReCaptcha token verification, NEEDS TO BE BAKED INTO THE ADD TRASHCAN PART !!!
+    @Autowired
+    private RecaptchaService recaptchaService;
+
+    @PostMapping("/verify-recaptcha")
+    public boolean verifyRecaptcha(@RequestBody String recaptchaToken) {
+        return recaptchaService.verifyRecaptcha(recaptchaToken);
+    }
 };
