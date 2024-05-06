@@ -7,8 +7,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class RecaptchaService {
 
-    // CHANGE THIS TO THE RECAPTCHA SECRET KEY !!!
-    @Value("${recaptcha.secret-key}")
+    @Value("${RECAPTCHA_SECRET_KEY}")
     private String recaptchaSecretKey;
 
     public boolean verifyRecaptcha(String recaptchaToken) {
